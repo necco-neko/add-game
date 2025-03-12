@@ -27,14 +27,29 @@ const GameScreen: React.FC<GameScreenProps> = ({
     onScore,
 }) => {
     const [ads, setAds] = useState<AdObject[]>([]);
+    const [imagePool, setImagePool] = useState<string[]>([]);
 
     useEffect(() => {
         if (gameState === "playing") {
-            generateAds();
+            fetchPexelsImages();
         }
     }, [gameState]);
 
+    const fetchPexelsImages = async () => {
+        try {
+            const response = await fetch("http://localhost:5001/api/pexels/images"); // クエリを指定する場合は/images?query=~~~で指定する
+            const data = await response.json();
+            if (data.images) {
+                setImagePool(data.images.map((img: any) => img.src)); // 画像のURLの配列を保存
+            }
+        } catch (error) {
+            console.error("画像の取得に失敗しました:", error);
+        }
+    };
+
     const generateAds = () => {
+        if (imagePool.length === 0) return;
+
         const adCount = Math.floor(Math.random() * 5) + 1; // 1〜5個
         const newAds: AdObject[] = [];
 
@@ -45,9 +60,8 @@ const GameScreen: React.FC<GameScreenProps> = ({
             const maxPosition = 97; // 完全に画面外に出ないように最大値を設定
             const top = Math.random() * (maxPosition - minPosition) + minPosition;; // ゲームエリア内の範囲
             const left = Math.random() * (maxPosition - minPosition) + minPosition;; // ゲームエリア内の範囲
-            console.log(size, top, left);
             // 画像
-            const imageUrl = "ads/ねこ.png";
+            const imageUrl = imagePool[Math.floor(Math.random() * imagePool.length)];
             const width = Math.floor(Math.random() * 150) + 100;
             const height = Math.floor(Math.random() * 150) + 100;
             newAds.push({
@@ -63,6 +77,12 @@ const GameScreen: React.FC<GameScreenProps> = ({
 
         setAds(newAds);
     };
+
+    useEffect(() => {
+        if (gameState === "playing" && imagePool.length > 0) {
+            generateAds();
+        }
+    }, [gameState, imagePool]);
 
     const handleClickXButton = (id: number, size: number, top: number, left: number) => {
         const isOverfowing = top < 0 || left < 0 || top + (size / 400) * 100 > 100 || left + (size / 400) * 100 > 100; // はみ出しているか判定
