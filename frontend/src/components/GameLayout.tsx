@@ -1,7 +1,7 @@
 import React from "react";
 import Title from "./Title";
 import Rules from "./Rules";
-import GameArea from "./GameArea";
+import GameArea from "./GameArea/GameArea";
 import Ranking from "./Ranking";
 import "../styles/GameLayout.css";
 

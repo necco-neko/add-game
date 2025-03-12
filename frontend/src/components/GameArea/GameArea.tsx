@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/GameArea.css";
+import "../../styles/GameArea/GameArea.css";
 
 const GameArea: React.FC = () => {
     return (
