@@ -1,9 +1,19 @@
 .game-screen {
+    position: relative;
     width: 400px;
     height: 600px;
-    background-color: white;
-    border: 2px solid black;
+    background-color: lightgray;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+
+.x-icon {
+    position: absolute;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
 }
