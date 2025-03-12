@@ -1,0 +1,9 @@
+.game-screen {
+    width: 400px;
+    height: 600px;
+    background-color: white;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
