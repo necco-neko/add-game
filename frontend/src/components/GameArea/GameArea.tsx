@@ -6,9 +6,11 @@ import GameScreen from "./GameScreen";
 
 const GameArea: React.FC = () => {
     const [gameState, setGameState] = useState<"start" | "playing" | "finished">("start");
+    const [score, setScore] = useState<number>(0);
 
     const handleStart = () => {
         setGameState("playing");
+        setScore(0);
     };
 
     const handleTimeUp = () => {
@@ -18,6 +20,22 @@ const GameArea: React.FC = () => {
 
     const handleRetry = () => {
         setGameState("start");
+        setScore(0);
+    };
+
+    const handleAddScore = (size: number, isOverfowing: boolean) => {
+        const baseScore = 100;
+        let addScore = Math.round(baseScore * (50 / size));
+
+        if (size <= 5) {
+            addScore *= 3;
+        }
+
+        if (isOverfowing) {
+            addScore *= 3;
+        }
+
+        setScore((prev) => prev + addScore);
     };
 
     return (
@@ -28,12 +46,15 @@ const GameArea: React.FC = () => {
                     gameState={gameState}
                     onTimeUp={handleTimeUp}
                 />
-                <Score />
+                <Score
+                    score={score}
+                />
             </div>
             <GameScreen
                 gameState={gameState}
                 onStart={handleStart}
                 onRetry={handleRetry}
+                onScore={handleAddScore}
             />
         </div>
     );

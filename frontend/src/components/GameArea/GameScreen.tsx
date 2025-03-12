@@ -5,6 +5,7 @@ interface GameScreenProps {
     gameState: "start" | "playing" | "finished";
     onStart: () => void;
     onRetry: () => void;
+    onScore: (score: number, isOverfowing: boolean) => void;
 }
 
 interface XButton {
@@ -18,6 +19,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
     gameState,
     onStart,
     onRetry,
+    onScore,
 }) => {
     const [xButtons, setXButtons] = useState<XButton[]>([]);
 
@@ -32,17 +34,21 @@ const GameScreen: React.FC<GameScreenProps> = ({
         const newButtons: XButton[] = [];
 
         for (let i = 0; i < buttonCount; i++) {
-            const size = Math.floor(Math.random() * (50 - 1 + 1)) + 20; // 1〜50px
-            const top = Math.random() * 100; // ゲームエリア内の範囲
-            const left = Math.random() * 100; // ゲームエリア内の範囲
-
+            const size = Math.floor(Math.random() * (50 - 3 + 1)) + 3; // 3〜50px
+            const minPosition = -(size / 400) / 2; // 完全に画面外に出ないように最小値を設定
+            const maxPosition = 97; // 完全に画面外に出ないように最大値を設定
+            const top = Math.random() * (maxPosition - minPosition) + minPosition;; // ゲームエリア内の範囲
+            const left = Math.random() * (maxPosition - minPosition) + minPosition;; // ゲームエリア内の範囲
+            console.log(size, top, left);
             newButtons.push({ id: i, top, left, size });
         }
 
         setXButtons(newButtons);
     };
 
-    const handleClickXButton = (id: number) => {
+    const handleClickXButton = (id: number, size: number, top: number, left: number) => {
+        const isOverfowing = top < 0 || left < 0 || top + (size / 400) * 100 > 100 || left + (size / 400) * 100 > 100; // はみ出しているか判定
+        onScore(size, isOverfowing);
         setXButtons((prevButtons) => prevButtons.filter(button => button.id !== id));
 
         // 全部消えたら新しい広告を生成
@@ -74,7 +80,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
                                 width: `${button.size}px`,
                                 height: `${button.size}px`,
                             }}
-                            onClick={() => handleClickXButton(button.id)}
+                            onClick={() => handleClickXButton(button.id, button.size, button.top, button.left)}
                         />
                     ))}
                 </>
