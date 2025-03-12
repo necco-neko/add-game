@@ -16,14 +16,13 @@
 .ad-image {
     display: block;
     border: 1px solid #000;
-    z-index: 1;
+    background-color: white;
 }
 
 .x-icon {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2;
     color: white;
     border: none;
     border-radius: 50%;

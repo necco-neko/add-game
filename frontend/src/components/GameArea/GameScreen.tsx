@@ -92,6 +92,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
                         style={{
                             top: `${ad.top}%`,
                             left: `${ad.left}%`,
+                            zIndex: ad.id,
                         }}
                     >
                         {/* アイコン */}
@@ -113,6 +114,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
                             style={{
                                 width: `${ad.width}px`,
                                 height: `${ad.height}px`,
+                                zIndex: ad.id + 1,
                             }}
                         />
                     </div>
