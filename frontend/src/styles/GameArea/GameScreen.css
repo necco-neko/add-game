@@ -9,8 +9,21 @@
     overflow: hidden;
 }
 
+.ad-container {
+    position: absolute;
+}
+
+.ad-image {
+    display: block;
+    border: 1px solid #000;
+    z-index: 1;
+}
+
 .x-icon {
     position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
     color: white;
     border: none;
     border-radius: 50%;
