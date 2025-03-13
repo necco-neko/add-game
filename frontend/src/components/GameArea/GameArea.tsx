@@ -19,6 +19,7 @@ const GameArea: React.FC<GameAreaProps> = ({
     const handleStart = () => {
         setGameState("playing");
         setScore(0);
+        setPlayerName("");
     };
 
     const handleTimeUp = async () => {
@@ -31,6 +32,7 @@ const GameArea: React.FC<GameAreaProps> = ({
         setGameState("start");
         setScore(0);
         setIsRanked(false);
+        setPlayerName("");
     };
 
     const handleAddScore = (size: number, isOverfowing: boolean) => {
