@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/GameArea/GameArea.css";
 import Timer from "./Timer";
 import Score from "./Score";
@@ -7,20 +7,24 @@ import GameScreen from "./GameScreen";
 const GameArea: React.FC = () => {
     const [gameState, setGameState] = useState<"start" | "playing" | "finished">("start");
     const [score, setScore] = useState<number>(0);
+    const [isRanked, setIsRanked] = useState<boolean>(false);
+    const [playerName, setPlayerName] = useState<string>("");
 
     const handleStart = () => {
         setGameState("playing");
         setScore(0);
     };
 
-    const handleTimeUp = () => {
+    const handleTimeUp = async () => {
         setGameState("finished");
         alert("Time's up!");
+        await checkIsRanked();
     };
 
     const handleRetry = () => {
         setGameState("start");
         setScore(0);
+        setIsRanked(false);
     };
 
     const handleAddScore = (size: number, isOverfowing: boolean) => {
@@ -37,6 +41,49 @@ const GameArea: React.FC = () => {
 
         setScore((prev) => prev + addScore);
     };
+
+    const checkIsRanked = async () => {
+        try {
+            const response = await fetch("http://localhost:5001/api/rankings");
+            const data = await response.json();
+            const rankings = data.rankings || [];
+
+            // 取得したランキングデータと現在のスコアを比較
+            const isNewTop10 = rankings.length < 10 || rankings[9].score < score;
+
+            if (isNewTop10) {
+                const name = prompt("ランクイン！お名前を入力してください：")?.trim();
+
+                if (name) {
+                    setPlayerName(name);
+                    setIsRanked(true);
+                }
+            }
+        } catch (error) {
+            console.error("ランキング情報の取得に失敗しました:", error);
+        }
+    };
+
+    // ランキング更新処理
+    useEffect(() => {
+        if (isRanked && playerName) {
+            // ランキング情報をDBに送信
+            const newRanking = { name: playerName, score }; // ユーザー名は仮で "Player" としています
+            fetch("http://localhost:5001/api/rankings", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newRanking),
+            })
+                .then((response) => response.json())
+                .then(() => {
+                    console.log("ランキングが更新されました");
+                    setIsRanked(false); // 送信後、isRankedをリセット
+                })
+                .catch((error) => console.error("ランキング登録に失敗しました:", error));
+        }
+    }, [isRanked, playerName, score]);
 
     return (
         <div className="game-container">
