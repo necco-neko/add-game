@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Ranking.css";
 
-interface Ranking {
+interface RankingObject {
     name: string;
     score: number;
 }
 
 const Ranking: React.FC = () => {
-    const [rankings, setRankings] = useState<Ranking[]>([]);
+    const [rankings, setRankings] = useState<RankingObject[]>([]);
     
     // ランキングデータを取得
     useEffect(() => {
