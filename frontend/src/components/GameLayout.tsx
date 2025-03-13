@@ -20,9 +20,9 @@ const GameLayout: React.FC = () => {
                 <section className="game-area">
                     <GameArea setIsUpdated={setIsUpdated} />
                 </section>
-                <aside className="ranking-area">
+                <section className="ranking-area">
                     <Ranking isUpdated={isUpdated} setIsUpdated={setIsUpdated} />
-                </aside>
+                </section>
             </main>
         </div>
     );

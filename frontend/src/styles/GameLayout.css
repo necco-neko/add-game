@@ -24,37 +24,21 @@
 
 .content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    max-width: 1200px;
     flex-grow: 1;
     padding: 10px;
 }
 
 .game-area {
-    width: 70%;
+    width: 100%;
     background-color: #f8d7da;
     padding: 10px;
 }
 
 .ranking-area {
-    width: 30%;
+    width: 100%;
     background-color: #cfe2ff;
     padding: 10px;
 }
-
-@media (max-width: 800px) {
-    .content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .game-area {
-        width: 100%;
-    }
-
-    .ranking-area {
-        width: 100%;
-    }
-}
-  
