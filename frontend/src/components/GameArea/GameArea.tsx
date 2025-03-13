@@ -76,7 +76,7 @@ const GameArea: React.FC<GameAreaProps> = ({
     useEffect(() => {
         if (isRanked && playerName) {
             // ランキング情報をDBに送信
-            const newRanking = { name: playerName, score }; // ユーザー名は仮で "Player" としています
+            const newRanking = { name: playerName, score };
             fetch("http://localhost:5001/api/rankings", {
                 method: "POST",
                 headers: {
