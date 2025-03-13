@@ -54,7 +54,7 @@ const GameArea: React.FC<GameAreaProps> = ({
         try {
             const response = await fetch("http://localhost:5001/api/rankings");
             const data = await response.json();
-            const rankings = data.rankings || [];
+            const rankings = data || [];
 
             // 取得したランキングデータと現在のスコアを比較
             const isNewTop10 = rankings.length < 10 || rankings[9].score < score;
