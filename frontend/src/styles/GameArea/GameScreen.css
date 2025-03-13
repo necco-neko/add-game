@@ -9,14 +9,15 @@
     overflow: hidden;
 }
 
-.ad-container {
-    position: absolute;
+.start-button {
+    font-size: 30px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: lightgreen;
 }
 
-.ad-image {
-    display: block;
-    border: 1px solid #000;
-    background-color: white;
+.ad-container {
+    position: absolute;
 }
 
 .x-icon {
@@ -28,4 +29,17 @@
     border-radius: 50%;
     font-size: 18px;
     cursor: pointer;
+}
+
+.ad-image {
+    display: block;
+    border: 1px solid #000;
+    background-color: white;
+}
+
+.retry-button {
+    font-size: 30px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: lightgreen;
 }
