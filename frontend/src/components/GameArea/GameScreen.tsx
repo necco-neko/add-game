@@ -28,6 +28,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
 }) => {
     const [ads, setAds] = useState<AdObject[]>([]);
     const [imagePool, setImagePool] = useState<string[]>([]);
+    const [backgroundImage, setBackgroundImage] = useState<string>("");
 
     useEffect(() => {
         if (gameState === "playing") {
@@ -46,6 +47,11 @@ const GameScreen: React.FC<GameScreenProps> = ({
             console.error("画像の取得に失敗しました:", error);
         }
     };
+
+    useEffect(() => {
+        console.log("背景更新");
+        setBackgroundImage(imagePool[Math.floor(Math.random() * imagePool.length)]);
+    }, [imagePool]);
 
     const generateAds = useCallback(() => {
         if (imagePool.length === 0) return;
@@ -96,7 +102,13 @@ const GameScreen: React.FC<GameScreenProps> = ({
     };
 
     return (
-        <div className="game-screen">
+        <div
+            className="game-screen"
+            style={{
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: "cover",
+            }}
+        >
             {/* スタート前 */}
             {gameState === "start" && (
                 <button className="start-button" onClick={onStart}>
