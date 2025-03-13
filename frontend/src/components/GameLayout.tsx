@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Title from "./Title";
 import Rules from "./Rules";
 import GameArea from "./GameArea/GameArea";
@@ -6,6 +6,8 @@ import Ranking from "./Ranking";
 import "../styles/GameLayout.css";
 
 const GameLayout: React.FC = () => {
+    const [isUpdated, setIsUpdated] = useState<boolean>(false);
+
     return (
         <div className="game-layout">
             <header className="title-area">
@@ -16,10 +18,10 @@ const GameLayout: React.FC = () => {
             </section>
             <main className="content">
                 <section className="game-area">
-                    <GameArea />
+                    <GameArea setIsUpdated={setIsUpdated} />
                 </section>
                 <aside className="ranking-area">
-                    <Ranking />
+                    <Ranking isUpdated={isUpdated} setIsUpdated={setIsUpdated} />
                 </aside>
             </main>
         </div>

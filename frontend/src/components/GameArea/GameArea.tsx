@@ -4,7 +4,13 @@ import Timer from "./Timer";
 import Score from "./Score";
 import GameScreen from "./GameScreen";
 
-const GameArea: React.FC = () => {
+interface GameAreaProps {
+    setIsUpdated: (updated: boolean) => void;
+}
+
+const GameArea: React.FC<GameAreaProps> = ({
+    setIsUpdated
+}) => {
     const [gameState, setGameState] = useState<"start" | "playing" | "finished">("start");
     const [score, setScore] = useState<number>(0);
     const [isRanked, setIsRanked] = useState<boolean>(false);
@@ -79,11 +85,12 @@ const GameArea: React.FC = () => {
                 .then((response) => response.json())
                 .then(() => {
                     console.log("ランキングが更新されました");
-                    setIsRanked(false); // 送信後、isRankedをリセット
+                    setIsRanked(false);
+                    setIsUpdated(true);
                 })
                 .catch((error) => console.error("ランキング登録に失敗しました:", error));
         }
-    }, [isRanked, playerName, score]);
+    }, [isRanked, playerName, score, setIsUpdated]);
 
     return (
         <div className="game-container">
