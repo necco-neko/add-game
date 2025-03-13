@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../../styles/GameArea/GameScreen.css";
 
 interface GameScreenProps {
@@ -47,7 +47,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
         }
     };
 
-    const generateAds = () => {
+    const generateAds = useCallback(() => {
         if (imagePool.length === 0) return;
 
         const adCount = Math.floor(Math.random() * 5) + 1; // 1〜5個
@@ -76,13 +76,13 @@ const GameScreen: React.FC<GameScreenProps> = ({
         }
 
         setAds(newAds);
-    };
+    }, [imagePool]);
 
     useEffect(() => {
         if (gameState === "playing" && imagePool.length > 0) {
             generateAds();
         }
-    }, [gameState, imagePool]);
+    }, [gameState, imagePool, generateAds]);
 
     const handleClickXButton = (id: number, size: number, top: number, left: number) => {
         const isOverfowing = top < 0 || left < 0 || top + (size / 400) * 100 > 100 || left + (size / 400) * 100 > 100; // はみ出しているか判定
