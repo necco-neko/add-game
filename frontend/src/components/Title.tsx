@@ -3,7 +3,7 @@ import "../styles/Title.css";
 
 const Title: React.FC = () => {
     return (
-        <h1 className="title">×ボタンをクリックするゲーム</h1>
+        <h1 className="title">広告削除ゲーム</h1>
     );
 };
 
