@@ -38,7 +38,8 @@ const GameScreen: React.FC<GameScreenProps> = ({
 
     const fetchPexelsImages = async () => {
         try {
-            const response = await fetch("http://localhost:5001/api/pexels/images"); // クエリを指定する場合は/images?query=~~~で指定する
+            const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+            const response = await fetch(`${API_BASE_URL}/api/pexels/images`); // クエリを指定する場合は/images?query=~~~で指定する
             const data = await response.json();
             if (data.images) {
                 setImagePool(data.images.map((img: any) => img.src)); // 画像のURLの配列を保存

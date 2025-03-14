@@ -52,7 +52,8 @@ const GameArea: React.FC<GameAreaProps> = ({
 
     const checkIsRanked = async () => {
         try {
-            const response = await fetch("http://localhost:5001/api/rankings");
+            const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+            const response = await fetch(`${API_BASE_URL}/api/rankings`);
             const data = await response.json();
             const rankings = data || [];
 
@@ -77,7 +78,8 @@ const GameArea: React.FC<GameAreaProps> = ({
         if (isRanked && playerName) {
             // ランキング情報をDBに送信
             const newRanking = { name: playerName, score };
-            fetch("http://localhost:5001/api/rankings", {
+            const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+            fetch(`${API_BASE_URL}/api/rankings`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

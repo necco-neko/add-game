@@ -19,7 +19,8 @@ const Ranking: React.FC<RankingProps> = ({
 
     const fetchRankings = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:5001/api/rankings");
+            const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+            const response = await fetch(`${API_BASE_URL}/api/rankings`);
             const data = await response.json();
             setRankings(data || []);
             setIsUpdated(false);
