@@ -42,13 +42,24 @@ const Ranking: React.FC<RankingProps> = ({
     return (
         <div className="ranking">
             <h2>ランキング</h2>
-            <ul>
-                {rankings.map((ranking, index) => (
-                    <li key={index} className="ranking-item">
-                        {index + 1}位: {ranking.name} --- {ranking.score}点
-                    </li>
-                ))}
-            </ul>
+            <table className="ranking-table">
+                <thead>
+                    <tr>
+                        <th>順位</th>
+                        <th>プレイヤー名</th>
+                        <th>スコア</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rankings.map((ranking, index) => (
+                        <tr key={index} className={`rank-${index + 1}`}>
+                            <td>{index + 1}位</td>
+                            <td className="player-name">{ranking.name}</td>
+                            <td>{ranking.score}点</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };

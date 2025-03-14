@@ -1,36 +1,54 @@
 .ranking {
-    margin: 20px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.ranking h2 {
-    font-size: 24px;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px;
 }
 
-.ranking ul {
-    list-style-type: none;
-    padding: 0;
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
-.ranking-item {
-    font-size: 18px;
-    margin: 10px 0;
+.ranking-table th,
+.ranking-table td {
+    border: 1px solid #ddd;
     padding: 10px;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.ranking-item:nth-child(odd) {
-    background-color: #f0f0f0;
+.ranking-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
 }
 
-.ranking-item:hover {
-    background-color: #e0e0e0;
-    cursor: pointer;
+.player-name {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rank-1 {
+    background-color: gold;
+    font-weight: bold;
+}
+
+.rank-2 {
+    background-color: silver;
+    font-weight: bold;
+}
+
+.rank-3 {
+    background-color: #cd7f32;
+    font-weight: bold;
+}
+
+.rank-4,
+.rank-5,
+.rank-6,
+.rank-7,
+.rank-8,
+.rank-9,
+.rank-10 {
+    background-color: white;
 }
