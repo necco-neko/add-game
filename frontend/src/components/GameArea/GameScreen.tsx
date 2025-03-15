@@ -5,7 +5,7 @@ interface GameScreenProps {
     gameState: "start" | "playing" | "finished";
     onStart: () => void;
     onRetry: () => void;
-    onScore: (score: number, isOverfowing: boolean) => void;
+    onAddScore: (size: number, isOverfowing: boolean) => void;
 }
 
 interface AdObject {
@@ -24,7 +24,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
     gameState,
     onStart,
     onRetry,
-    onScore,
+    onAddScore,
 }) => {
     const [ads, setAds] = useState<AdObject[]>([]);
     const [imagePool, setImagePool] = useState<string[]>([]);
@@ -93,7 +93,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
 
     const handleClickXButton = (id: number, size: number, top: number, left: number) => {
         const isOverfowing = top < 0 || left < 0 || top + (size / 400) * 100 > 100 || left + (size / 400) * 100 > 100; // はみ出しているか判定
-        onScore(size, isOverfowing);
+        onAddScore(size, isOverfowing);
         setAds((prev) => prev.filter(ad => ad.id !== id));
 
         // 全部消えたら新しい広告を生成

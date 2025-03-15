@@ -112,7 +112,7 @@ const GameArea: React.FC<GameAreaProps> = ({
                 gameState={gameState}
                 onStart={handleStart}
                 onRetry={handleRetry}
-                onScore={handleAddScore}
+                onAddScore={handleAddScore}
             />
         </div>
     );
