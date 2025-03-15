@@ -50,6 +50,17 @@ const GameArea: React.FC<GameAreaProps> = ({
         setScore((prev) => prev + addScore);
     };
 
+    const handleSubtractScore = (adType: "back" | "pop") => {
+        const adPenaltyScore = 500;
+        const backgroundImagePenaltyScore = 1000;
+        if (adType === "back") {
+            setScore((prev) => Math.max(0, prev - backgroundImagePenaltyScore));
+        }
+        if (adType === "pop") {
+            setScore((prev) => Math.max(0, prev - adPenaltyScore));
+        }
+    };
+
     const checkIsRanked = async () => {
         try {
             const API_BASE_URL = process.env.REACT_APP_API_URL || "";
@@ -113,6 +124,7 @@ const GameArea: React.FC<GameAreaProps> = ({
                 onStart={handleStart}
                 onRetry={handleRetry}
                 onAddScore={handleAddScore}
+                onSubtractScore={handleSubtractScore}
             />
         </div>
     );

@@ -6,6 +6,7 @@ interface GameScreenProps {
     onStart: () => void;
     onRetry: () => void;
     onAddScore: (size: number, isOverfowing: boolean) => void;
+    onSubtractScore: (adType: "back" | "pop") => void;
 }
 
 interface AdObject {
@@ -25,6 +26,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
     onStart,
     onRetry,
     onAddScore,
+    onSubtractScore,
 }) => {
     const [ads, setAds] = useState<AdObject[]>([]);
     const [imagePool, setImagePool] = useState<string[]>([]);
@@ -50,7 +52,6 @@ const GameScreen: React.FC<GameScreenProps> = ({
     };
 
     useEffect(() => {
-        console.log("背景更新");
         setBackgroundImage(imagePool[Math.floor(Math.random() * imagePool.length)]);
     }, [imagePool]);
 
@@ -102,6 +103,18 @@ const GameScreen: React.FC<GameScreenProps> = ({
         }
     };
 
+    const handleClickAd = (event: React.MouseEvent<HTMLDivElement>) => {
+        const target = event.target as HTMLElement;
+        if (!target.classList.contains("x-icon") && gameState === "playing") {
+             // ゲーム中に広告をクリックすると減点
+            if (target.classList.contains("ad-image")) {
+                onSubtractScore("pop"); // 広告をクリックした場合
+                return;
+            }
+            onSubtractScore("back"); // 広告外（背景等）をクリックした場合
+        }
+    };
+
     return (
         <div
             className="game-screen"
@@ -109,6 +122,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundSize: "cover",
             }}
+            onClick={handleClickAd}
         >
             {/* スタート前 */}
             {gameState === "start" && (
