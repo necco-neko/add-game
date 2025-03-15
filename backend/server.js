@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -21,10 +22,10 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use("/api/pexels", pexelsRouter);
 app.use("/api/rankings", rankingRouter);
 
-app.use(express.static(path.join(__dirname, "frontend/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
 
 app.listen(PORT, () => {
